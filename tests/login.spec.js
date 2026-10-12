@@ -1,0 +1,12 @@
+const { test, expect } = require('@playwright/test');
+
+test('login with valid credentials', async ({ page }) => {
+  await page.goto('https://practicesoftwaretesting.com/auth/login');
+
+  await page.getByLabel('Email address').fill('customer@practicesoftwaretesting.com');
+  await page.locator('[data-test="password"]').fill('welcome01');
+
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await expect(page).toHaveURL(/account/);
+});
