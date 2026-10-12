@@ -10,3 +10,15 @@ test('login with valid credentials', async ({ page }) => {
 
   await expect(page).toHaveURL(/account/);
 });
+
+
+test('login with invalid password', async ({ page }) => {
+  await page.goto('https://practicesoftwaretesting.com/auth/login');
+
+  await page.getByLabel('Email address').fill('customer@practicesoftwaretesting.com');
+  await page.locator('[data-test="password"]').fill('wrongpassword');
+
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await expect(page.getByText('Invalid email or password')).toBeVisible();
+});
